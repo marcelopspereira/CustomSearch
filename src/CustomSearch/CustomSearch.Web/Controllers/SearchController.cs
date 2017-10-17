@@ -11,21 +11,26 @@ namespace CustomSearch.Web.Controllers
 {
     public class SearchController : Controller
     {
+        ISearchRepository _search;
+
+        public SearchController(ISearchRepository search)
+        {
+            _search = search;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Results([FromQuery]string q)
+        public async Task<IActionResult> Results([FromQuery]string q)
         {
             string query = q;
-
-            InMemorySearchRepository search = new InMemorySearchRepository();
-
-            var searchResults = search.Search(query);
+            
+            var searchResults = await _search.SearchAsync(query);
 
             ViewBag.query = query;
-            ViewBag.searchResults = searchResults;
+            ViewBag.searchResults = searchResults.Results;
 
             return View();
         }
