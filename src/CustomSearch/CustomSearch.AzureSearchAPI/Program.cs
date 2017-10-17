@@ -15,23 +15,27 @@ namespace Search.API
     {
         public static void Main(string[] args)
         {
-            var webHost = BuildWebHost(args);
-            webHost.Run();
+            BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseKestrel(options =>
-                {
-                    options.Listen(IPAddress.Any, 5000, listenOptions =>
-                    {
-                        listenOptions.NoDelay = false;
-                    });
-            })
-            .UseUrls("https://localhost:5000")
-            .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseIISIntegration()
-            .Build();
+                .Build();
+        
+        //public static IWebHost BuildWebHost(string[] args) =>
+        //    WebHost.CreateDefaultBuilder(args)
+        //        .UseStartup<Startup>()
+        //        .UseKestrel(options =>
+        //        {
+        //            options.Listen(IPAddress.Any, 5000, listenOptions =>
+        //            {
+        //                listenOptions.NoDelay = false;
+        //            });
+        //    })
+        //    .UseUrls("http://localhost:5000")
+        //    .UseContentRoot(Directory.GetCurrentDirectory())
+        //    .UseIISIntegration()
+        //    .Build();
     }
 }

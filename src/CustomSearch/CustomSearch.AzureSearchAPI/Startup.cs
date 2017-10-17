@@ -36,13 +36,6 @@ namespace Search.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            services.AddSingleton<IAzureSearch>(
-                new AzureSearch(Configuration.GetValue<String>("AzureSearch:ServiceName"), 
-                Configuration.GetValue<String>("AzureSearch:ApiKey"), 
-                Configuration.GetValue<String>("AzureSearch:IndexName"))
-                );
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,12 +46,7 @@ namespace Search.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Search}/{action=Exams}");
-            });
+            app.UseMvc();
         }
     }
 }

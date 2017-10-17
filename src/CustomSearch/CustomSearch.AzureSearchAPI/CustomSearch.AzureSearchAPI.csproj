@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <StartupObject>Search.API.Program</StartupObject>
+    <RootNamespace>CustomSearch.Api</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
