@@ -13,13 +13,13 @@ namespace CustomSearch.Web.Controllers
     public class SearchController : Controller
     {
         [HttpGet("")]
-        public IEnumerable<SearchResult> Search([FromQuery]string q)
+        public async Task<SearchResultCollection> Search([FromQuery]string q)
         {
             string query = q;
 
             InMemorySearchRepository search = new InMemorySearchRepository();
 
-            var searchResults = search.Search(query);
+            var searchResults = await search.SearchAsync(query);
 
             return searchResults;            
         }

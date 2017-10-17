@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace CustomSearch.Web.Models
 {
+    public class SearchResultCollection
+    {
+        public IEnumerable<SearchResult> Results;
+    }
+
     public class SearchResult
     {
         public string Title { get; set; }

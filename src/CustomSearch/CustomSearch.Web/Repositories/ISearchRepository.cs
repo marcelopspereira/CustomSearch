@@ -8,6 +8,6 @@ namespace CustomSearch.Web.Repositories
 {
     public interface ISearchRepository
     {
-        IEnumerable<SearchResult> Search(string query);
+        Task<SearchResultCollection> SearchAsync(string query);
     }
 }

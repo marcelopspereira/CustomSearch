@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace CustomSearch.Api.Models
 {
+    public class SearchResultCollection
+    {
+        public IEnumerable<SearchResult> Results;
+    }
+
     public class SearchResult
     {
         public string Title { get; set; }
