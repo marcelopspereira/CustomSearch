@@ -21,25 +21,18 @@
 
     <div class="container body-content">
         <h1>Resultado da Busca</h1>
-        <h2>Pesquisa por "blabla"</h2>
+        <h2>Pesquisa por "@ViewBag.query"</h2>
 
-        <div>
-            <h3><a href="link">Resultado 1</a></h3>
-            <p>descricao descricao descricao descricao descricao descricao descricao</p>
-            <a href="link">Link > resultado 1</a>
-        </div>
-
-        <div>
-            <h3><a href="link">Resultado 2</a></h3>
-            <p>descricao descricao descricao descricao descricao descricao descricao</p>
-            <a href="link">Link > resultado 2</a>
-        </div>
-
-        <div>
-            <h3><a href="link">Resultado 3</a></h3>
-            <p>descricao descricao descricao descricao descricao descricao descricao</p>
-            <a href="link">Link > resultado 3</a>
-        </div>
+        @{ 
+            foreach(SearchResult result in ViewBag.searchResults)
+            {
+                <div>
+                    <h3><a href="@result.Link">@result.Title</a></h3>
+                    <a href="@result.Link">@result.Link</a>
+                    <p>@result.Description</p>
+                </div>
+            }
+        }
         
     </div>
 
