@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Custom Search Web</title>
+    <title>Custom Search Web: Results</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -20,12 +20,27 @@
 <body>
 
     <div class="container body-content">
-        <form method="get" action="/search/results" class="form-inline">
-            <div class="form-group">
-                <input class="form-control" type="search" />
-                <button class="btn btn-default" type="submit">Search</button>
-            </div>
-        </form>        
+        <h1>Resultado da Busca</h1>
+        <h2>Pesquisa por "blabla"</h2>
+
+        <div>
+            <h3><a href="link">Resultado 1</a></h3>
+            <p>descricao descricao descricao descricao descricao descricao descricao</p>
+            <a href="link">Link > resultado 1</a>
+        </div>
+
+        <div>
+            <h3><a href="link">Resultado 2</a></h3>
+            <p>descricao descricao descricao descricao descricao descricao descricao</p>
+            <a href="link">Link > resultado 2</a>
+        </div>
+
+        <div>
+            <h3><a href="link">Resultado 3</a></h3>
+            <p>descricao descricao descricao descricao descricao descricao descricao</p>
+            <a href="link">Link > resultado 3</a>
+        </div>
+        
     </div>
 
     <environment include="Development">
