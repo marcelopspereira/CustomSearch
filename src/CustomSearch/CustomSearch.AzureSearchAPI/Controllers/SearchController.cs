@@ -20,7 +20,7 @@ namespace CustomSearch.Web.Controllers
 
         public SearchController(IOptions<ApplicationConfiguration> options)
         {
-            _appConfig = (options != null) ? options.Value : null;
+            _appConfig = options.Value;
         }
 
         [HttpGet("")]
