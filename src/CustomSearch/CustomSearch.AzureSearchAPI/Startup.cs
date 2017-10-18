@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Search.API.Services;
+using CustomSearch.Api.Repositories;
 
 namespace CustomSearch.Api
 {
@@ -38,6 +39,8 @@ namespace CustomSearch.Api
         {
             services.AddOptions();
             services.Configure<ApplicationConfiguration>(Configuration);
+
+            services.AddSingleton<SearchProviders, SearchProviders>();
 
             services.AddMvc();
         }

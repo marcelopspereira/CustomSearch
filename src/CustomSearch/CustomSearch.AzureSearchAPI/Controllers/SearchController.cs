@@ -14,13 +14,11 @@ namespace CustomSearch.Web.Controllers
     [Route("api/search")]
     public class SearchController : Controller
     {
-        static ISearchRepository _searchRepositorySingleton = new InMemorySearchRepository();
+        private readonly SearchProviders _searchProviders;
 
-        ApplicationConfiguration _appConfig;
-
-        public SearchController(IOptions<ApplicationConfiguration> options)
+        public SearchController(IOptions<ApplicationConfiguration> options, SearchProviders searchProviders)
         {
-            _appConfig = options.Value;
+            this._searchProviders = searchProviders;
         }
 
         [HttpGet("")]
@@ -28,7 +26,9 @@ namespace CustomSearch.Web.Controllers
         {
             string query = q;
 
-            var searchResults = await _searchRepositorySingleton.SearchAsync(query);
+            var searchRepository = _searchProviders.GetCurrentRepository();
+
+            var searchResults = await searchRepository.SearchAsync(query);
 
             return searchResults;
         }
@@ -37,57 +37,27 @@ namespace CustomSearch.Web.Controllers
         [HttpGet("/setting/provider")]
         public string GetProvider()
         {
-            string provider = null;
+            string provider = _searchProviders.CurrentProvider;
+            string availableProviders = String.Join('|', _searchProviders.AvailableProviders);
 
-            if (_searchRepositorySingleton is BingSearchRepository)
-                provider = "bing";
-
-            if (_searchRepositorySingleton is AzureSearchRepository)
-                provider = "azure";
-
-            if (_searchRepositorySingleton is InMemorySearchRepository)
-                provider = "memory";
-
-            return $"Current provider is [{provider}]";
+            return $"The current provider is [{provider}]. Available providers: [{availableProviders}]";
         }
 
         [HttpGet("/setting/provider/{provider}")]
         public string Provider([FromRoute]string provider)
         {
             string setProvider = provider.ToLower();
-
-            switch (setProvider)
-            {
-                case "bing":
-                    _searchRepositorySingleton = new BingSearchRepository(
-                        _appConfig.BingSearch.SubscriptionKey, 
-                        _appConfig.BingSearch.CustomConfigId);
-
-                    break;
-
-                case "azure":
-                    _searchRepositorySingleton = new AzureSearchRepository(
-                        _appConfig.AzureSearch.SearchServiceName, 
-                        _appConfig.AzureSearch.SearchServiceAdminApiKey, 
-                        _appConfig.AzureSearch.SearchServiceIndex);
-
-                    break;
-
-                case "memory":
-                    _searchRepositorySingleton = new InMemorySearchRepository();
-                    break;
-
-                default:
-                    setProvider = null;
-                    break;
-            }
-
+            
             if( setProvider == null )
             {
-                return $"Invalid provider [{provider}]. Choose between [bing|azure|image]";
+                string availableProviders = String.Join('|', _searchProviders.AvailableProviders);
+
+                return $"Invalid provider [{provider}]. Choose between [{availableProviders}]";
             }
 
-            return setProvider;
+            _searchProviders.SetCurrentProvider(provider);
+            
+            return $"The current provider is [{_searchProviders.CurrentProvider}]";
         }
     }
 }
