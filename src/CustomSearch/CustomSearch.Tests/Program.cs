@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 namespace CustomSearch.Tests
@@ -8,11 +10,26 @@ namespace CustomSearch.Tests
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Tests 1.0");
-
+            
             var bing = new BingSearchTest();
 
             bing.SimpleTest();
+
+
+            //Test Bing Custom Search API
+            //BingCustomSearchTest();
+
+        }
+
+        private static void BingCustomSearchTest()
+        {
+            var term = Console.ReadLine();
+
+            var runQuery = new BingSearch();
+
+            runQuery.ExecuteSearch(term);
+
+            Console.ReadLine();
         }
     }
 }

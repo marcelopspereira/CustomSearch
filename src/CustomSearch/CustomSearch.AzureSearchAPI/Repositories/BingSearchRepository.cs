@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomSearch.Api.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 namespace CustomSearch.Api.Repositories
 {
@@ -17,22 +19,66 @@ namespace CustomSearch.Api.Repositories
 
         public Task<SearchResultCollection> SearchAsync(string query)
         {
-            return ExampleAsync(query);
-        }
+            var subscriptionKey = AppConfig.Configuration["BingSearch:SubscriptionKey"];
+            var customConfigId = AppConfig.Configuration["BingSearch:CustomConfigId"];
+            var searchTerm = query;
 
-        Task<SearchResultCollection> ExampleAsync(string query)
-        {
-            var result = new SearchResultCollection()
+            var url = "https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search?" +
+                "q=" + searchTerm +
+                "&customconfig=" + customConfigId;
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            var httpResponseMessage = client.GetAsync(url).Result;
+            var responseContent = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            BingCustomSearchResponse response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(responseContent);
+
+          
+
+            for (int i = 0; i < response.webPages.value.Length; i++)
             {
-                Results = new List<SearchResult>()
-                {
-                    new SearchResult { Title = "BingSearchRepository: Resultado Square", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", Link = "https://www.bing.com/search?q=square"},
-                    new SearchResult { Title = "BingSearchRepository: Resultado Circle", Description = "Quam elementum pulvinar etiam non. Vel turpis nunc eget lorem dolor sed viverra.", Link = "https://www.bing.com/search?q=circle"},
-                    new SearchResult { Title = "BingSearchRepository: Resultado Line", Description = "Sed velit dignissim sodales ut eu sem integer vitae justo. Adipiscing vitae proin sagittis nisl rhoncus.", Link = "https://www.bing.com/search?q=line"}
-                }
-            };
+                var webPage = response.webPages.value[i];
+                Console.WriteLine("name: " + webPage.name);
+                Console.WriteLine("url: " + webPage.url);
+                Console.WriteLine("displayUrl: " + webPage.displayUrl);
+                Console.WriteLine("snippet: " + webPage.snippet);
+                Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
+                Console.WriteLine();
+
+            }
+
+            for (int i = 0; i < response.webPages.value.Length; i++)
+            {
+                var webPage = response.webPages.value[i];
+                Console.WriteLine("name: " + webPage.name);
+                Console.WriteLine("url: " + webPage.url);
+                Console.WriteLine("displayUrl: " + webPage.displayUrl);
+                Console.WriteLine("snippet: " + webPage.snippet);
+                Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
+                Console.WriteLine();
+
+            }
+
+
+
+
+
+
+
+            //   Results = new List<SearchResult>()
+            //{
+
+            //    new SearchResult { Title = "12345" , Description = "" , Link = "" },
+            //     new SearchResult { Title = "12345" , Description = "" , Link = "" }
+            //}
+
+
+            var result = new SearchResultCollection();
 
             return Task.FromResult(result);
         }
+            
     }
+            
+    
 }
