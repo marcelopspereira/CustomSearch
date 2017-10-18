@@ -8,6 +8,13 @@ namespace CustomSearch.Api.Repositories
 {
     public class BingSearchRepository : ISearchRepository
     {
+        const string url = "https://api.cognitive.microsoft.com/bingcustomsearch/v7.0/search";
+
+        public BingSearchRepository(string subscriptionKey, string customConfigId)
+        {
+
+        }
+
         public Task<SearchResultCollection> SearchAsync(string query)
         {
             return ExampleAsync(query);

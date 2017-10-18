@@ -8,9 +8,12 @@ namespace CustomSearch.Tests
     public class BingSearchTest
     {
         [Fact]
-        public void Test()
+        public void SimpleTest()
         {
-            var repo = new BingSearchRepository();
+            var subscriptionKey = AppConfig.Configuration["BingSearch:SubscriptionKey"];
+            var customConfigId = AppConfig.Configuration["BingSearch:CustomConfigId"];
+
+            var repo = new BingSearchRepository(subscriptionKey, customConfigId);
 
             var result = repo.SearchAsync("teste");
 

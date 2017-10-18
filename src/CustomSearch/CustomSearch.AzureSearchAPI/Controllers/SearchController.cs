@@ -50,7 +50,7 @@ namespace CustomSearch.Web.Controllers
             switch (setProvider)
             {
                 case "bing":
-                    _searchRepositorySingleton = new BingSearchRepository();
+                    _searchRepositorySingleton = new BingSearchRepository("", "");
                     break;
 
                 case "azure":
