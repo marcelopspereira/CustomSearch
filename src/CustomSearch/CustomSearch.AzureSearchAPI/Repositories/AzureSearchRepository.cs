@@ -24,9 +24,9 @@ namespace CustomSearch.Api.Repositories
             var results = from d in documentList.Results
                           select new Models.SearchResult()
                           {
-                              Title = d.Document.Title,
-                              Category = d.Document.Category,
-                              Description = d.Document.Description,
+                              Title = d.Document.Title ?? "No title available",
+                              Category = d.Document.Category ?? "No category",
+                              Description = d.Document.Description ?? "",
                               Link = d.Document.Link
                           };
 
