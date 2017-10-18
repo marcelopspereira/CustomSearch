@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace Search.API
+namespace CustomSearch.Api
 {
     public class Program
     {

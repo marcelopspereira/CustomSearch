@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Search.API.Services;
 
-namespace Search.API
+namespace CustomSearch.Api
 {
     public class Startup
     {
@@ -27,6 +27,7 @@ namespace Search.API
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("config.secrets.json", optional: true)
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -35,6 +36,9 @@ namespace Search.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<ApplicationConfiguration>(Configuration);
+
             services.AddMvc();
         }
 

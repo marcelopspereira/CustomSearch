@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CustomSearch.Api.Models;
 using CustomSearch.Api.Repositories;
+using Microsoft.Extensions.Options;
+using CustomSearch.Api;
 
 namespace CustomSearch.Web.Controllers
 {
@@ -13,6 +15,13 @@ namespace CustomSearch.Web.Controllers
     public class SearchController : Controller
     {
         static ISearchRepository _searchRepositorySingleton = new InMemorySearchRepository();
+
+        ApplicationConfiguration _appConfig;
+
+        public SearchController(IOptions<ApplicationConfiguration> options)
+        {
+            _appConfig = (options != null) ? options.Value : null;
+        }
 
         [HttpGet("")]
         public async Task<SearchResultCollection> Search([FromQuery]string q)
@@ -50,11 +59,18 @@ namespace CustomSearch.Web.Controllers
             switch (setProvider)
             {
                 case "bing":
-                    _searchRepositorySingleton = new BingSearchRepository("", "");
+                    _searchRepositorySingleton = new BingSearchRepository(
+                        _appConfig.BingSearch.SubscriptionKey, 
+                        _appConfig.BingSearch.CustomConfigId);
+
                     break;
 
                 case "azure":
-                    _searchRepositorySingleton = new AzureSearchRepository("", "", "");
+                    _searchRepositorySingleton = new AzureSearchRepository(
+                        _appConfig.AzureSearch.SearchServiceName, 
+                        _appConfig.AzureSearch.SearchServiceAdminApiKey, 
+                        _appConfig.AzureSearch.SearchServiceIndex);
+
                     break;
 
                 case "memory":

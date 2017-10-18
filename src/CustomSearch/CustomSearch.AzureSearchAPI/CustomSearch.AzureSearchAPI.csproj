@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <StartupObject>Search.API.Program</StartupObject>
+    <StartupObject>CustomSearch.Api.Program</StartupObject>
     <RootNamespace>CustomSearch.Api</RootNamespace>
   </PropertyGroup>
 
