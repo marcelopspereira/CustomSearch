@@ -54,7 +54,7 @@ namespace CustomSearch.Web.Controllers
                     break;
 
                 case "azure":
-                    _searchRepositorySingleton = new AzureSearchRepository();
+                    _searchRepositorySingleton = new AzureSearchRepository("", "", "");
                     break;
 
                 case "memory":

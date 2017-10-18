@@ -3,29 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomSearch.Api.Models;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 
 namespace CustomSearch.Api.Repositories
 {
     public class AzureSearchRepository : ISearchRepository
     {
+        ISearchIndexClient _client;
+
+        public AzureSearchRepository(string searchServiceName, string adminApiKey, string indexName)
+        {
+            _client = CreateSearchServiceClient(searchServiceName, adminApiKey, indexName);
+        }
+
         public Task<SearchResultCollection> SearchAsync(string query)
         {
-            return ExampleAsync(query);
+            var documentList = _client.Documents.Search<AzureSearchModel>(query);
+
+            var results = from d in documentList.Results
+                          select new Models.SearchResult()
+                          {
+                              Title = d.Document.Title,
+                              Category = d.Document.Category,
+                              Description = d.Document.Description,
+                              Link = d.Document.Link
+                          };
+
+            var searchResultCollection = new SearchResultCollection() { Results = results.ToList() };
+
+            return Task.FromResult(searchResultCollection);
         }
 
-        Task<SearchResultCollection> ExampleAsync(string query)
+        private static ISearchIndexClient CreateSearchServiceClient(string searchServiceName, string adminApiKey, string indexName)
         {
-            var result = new SearchResultCollection()
-            {
-                Results = new List<SearchResult>()
-                {
-                    new SearchResult { Title = "AzureSearch: Resultado Square", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", Link = "https://www.bing.com/search?q=square"},
-                    new SearchResult { Title = "AzureSearch: Resultado Circle", Description = "Quam elementum pulvinar etiam non. Vel turpis nunc eget lorem dolor sed viverra.", Link = "https://www.bing.com/search?q=circle"},
-                    new SearchResult { Title = "AzureSearch: Resultado Line", Description = "Sed velit dignissim sodales ut eu sem integer vitae justo. Adipiscing vitae proin sagittis nisl rhoncus.", Link = "https://www.bing.com/search?q=line"}
-                }
-            };
+            var serviceClient = new SearchServiceClient(searchServiceName, new SearchCredentials(adminApiKey));
 
-            return Task.FromResult(result);
-        }
+            ISearchIndexClient indexClient = serviceClient.Indexes.GetClient(indexName);
+
+            return indexClient;
+        }        
     }
 }

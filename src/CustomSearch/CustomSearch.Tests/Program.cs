@@ -10,9 +10,9 @@ namespace CustomSearch.Tests
         {
             Console.WriteLine("Tests 1.0");
 
-            var bing = new BingSearchTest();
+            var azsearch = new AzureSearchTest();
 
-            bing.SimpleTest();
+            azsearch.SimpleTest();
         }
     }
 }
