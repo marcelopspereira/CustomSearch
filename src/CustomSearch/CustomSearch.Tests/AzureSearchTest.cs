@@ -12,6 +12,8 @@ namespace CustomSearch.Tests
         {
             var repo = new AzureSearchRepository();
 
+            string azureKey = AppConfig.Configuration["AzureSearchKey"];
+
             var result = repo.SearchAsync("teste");
 
             Assert.NotNull(result.Result.Results);
