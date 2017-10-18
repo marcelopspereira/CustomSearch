@@ -8,13 +8,15 @@ namespace CustomSearch.Tests
     public class AzureSearchTest
     {
         [Fact]
-        public void Test()
-        {
-            var repo = new AzureSearchRepository();
+        public void SimpleTest()
+        {            
+            string searchServiceName = AppConfig.Configuration["AzureSearch:SearchServiceName"];
+            string adminApiKey = AppConfig.Configuration["AzureSearch:SearchServiceAdminApiKey"];
+            string indexName = AppConfig.Configuration["AzureSearch:SearchServiceIndex"];
+            
+            var repo = new AzureSearchRepository(searchServiceName, adminApiKey, indexName);
 
-            string azureKey = AppConfig.Configuration["AzureSearchKey"];
-
-            var result = repo.SearchAsync("teste");
+            var result = repo.SearchAsync("house");
 
             Assert.NotNull(result.Result.Results);
 
