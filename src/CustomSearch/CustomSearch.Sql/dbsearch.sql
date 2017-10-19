@@ -6,3 +6,14 @@ CREATE TABLE WebPages
 	[Category]			NVARCHAR(500) NULL,
 	[Link]				VARCHAR(1000) NOT NULL
 )
+
+CREATE TABLE SearchWebPages
+(
+	[Id]				INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Title]				NVARCHAR(1000) NOT NULL,
+	[Description]		NVARCHAR(MAX) NOT NULL,
+	[Category]			NVARCHAR(500) NULL,
+	[Link]				VARCHAR(1000) NOT NULL,
+	[Modified]			ROWVERSION,
+	[Deleted]			BIT NOT NULL
+)

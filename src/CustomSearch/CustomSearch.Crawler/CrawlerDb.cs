@@ -24,6 +24,8 @@ namespace CustomSearch.Crawler
 
             using (var conn = new SqlConnection(_connectionString))
             {
+                conn.Open();
+
                 var cmd = new SqlCommand("INSERT WebPages([Title], [Description], [Link]) VALUES (@title, @description, @link)", conn);
                 cmd.Parameters.AddWithValue("@title", title);
                 cmd.Parameters.AddWithValue("@description", description);
