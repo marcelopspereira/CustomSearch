@@ -25,8 +25,18 @@ namespace CustomSearch.Crawler
             using (var conn = new SqlConnection(_connectionString))
             {
                 conn.Open();
-
-                var cmd = new SqlCommand("INSERT SearchWebPages([Title], [Description], [Link]) VALUES (@title, @description, @link)", conn);
+                
+                //
+                //  CREATE PROC procAddSearchWebPages(@title NVARCHAR(1000), @description NVARCHAR(MAX), @link VARCHAR(1000))
+                //  AS
+                //  SET NOCOUNT ON
+                //  UPDATE SearchWebPages SET[Title] = @title, [Description]=@description WHERE[Link] = @link;
+                //  IF @@ROWCOUNT = 0 
+                //      INSERT SearchWebPages([Title], [Description], [Link]) VALUES(@title, @description, @link);
+                //
+                var cmd = new SqlCommand("procAddSearchWebPages", conn);
+                
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@title", title);
                 cmd.Parameters.AddWithValue("@description", description);
                 cmd.Parameters.AddWithValue("@link", link);
