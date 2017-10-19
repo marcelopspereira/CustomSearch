@@ -15,11 +15,11 @@ namespace CustomSearch.Tests
 
             var repo = new BingSearchRepository(subscriptionKey, customConfigId);
 
-            var result = repo.SearchAsync("teste");
+            var result = repo.SearchAsync("credito");
 
             Assert.NotNull(result.Result.Results);
 
-            Assert.True(result.Result.Results.Count() > 5);
+            Assert.True(result.Result.Results.Count() > 2);
         }
     }
 }

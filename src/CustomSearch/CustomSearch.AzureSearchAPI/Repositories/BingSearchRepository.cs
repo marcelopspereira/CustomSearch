@@ -17,6 +17,8 @@ namespace CustomSearch.Api.Repositories
 
         }
 
+        public List<SearchResult> Results { get; private set; }
+
         public Task<SearchResultCollection> SearchAsync(string query)
         {
             var subscriptionKey = AppConfig.Configuration["BingSearch:SubscriptionKey"];
@@ -31,53 +33,30 @@ namespace CustomSearch.Api.Repositories
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
             var httpResponseMessage = client.GetAsync(url).Result;
             var responseContent = httpResponseMessage.Content.ReadAsStringAsync().Result;
+
             BingCustomSearchResponse response = JsonConvert.DeserializeObject<BingCustomSearchResponse>(responseContent);
 
-          
+
+            Results = new List<SearchResult>();
+
 
             for (int i = 0; i < response.webPages.value.Length; i++)
             {
                 var webPage = response.webPages.value[i];
-                Console.WriteLine("name: " + webPage.name);
-                Console.WriteLine("url: " + webPage.url);
-                Console.WriteLine("displayUrl: " + webPage.displayUrl);
-                Console.WriteLine("snippet: " + webPage.snippet);
-                Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
-                Console.WriteLine();
+                Results.Add(new SearchResult() { Title = webPage.name, Description = webPage.snippet, Link = webPage.url, Category = "" });
 
             }
-
-            for (int i = 0; i < response.webPages.value.Length; i++)
-            {
-                var webPage = response.webPages.value[i];
-                Console.WriteLine("name: " + webPage.name);
-                Console.WriteLine("url: " + webPage.url);
-                Console.WriteLine("displayUrl: " + webPage.displayUrl);
-                Console.WriteLine("snippet: " + webPage.snippet);
-                Console.WriteLine("dateLastCrawled: " + webPage.dateLastCrawled);
-                Console.WriteLine();
-
-            }
-
-
-
-
-
-
-
-            //   Results = new List<SearchResult>()
-            //{
-
-            //    new SearchResult { Title = "12345" , Description = "" , Link = "" },
-            //     new SearchResult { Title = "12345" , Description = "" , Link = "" }
-            //}
 
 
             var result = new SearchResultCollection();
 
+            result.Results = Results;
+
             return Task.FromResult(result);
         }
-            
+
+  
+
     }
             
     
