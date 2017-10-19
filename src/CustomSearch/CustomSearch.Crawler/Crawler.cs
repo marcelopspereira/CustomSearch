@@ -13,7 +13,6 @@ namespace CustomSearch.Crawler
     {
         public Crawler()
         {
-
         }
 
         public void Start(string entrypoint)
@@ -62,7 +61,7 @@ namespace CustomSearch.Crawler
 
             var page = Page.CreateFrom(crawledPage);
 
-            Parse(page);
+            Process(page);
         }
 
         void crawler_PageLinksCrawlDisallowed(object sender, PageLinksCrawlDisallowedArgs e)
@@ -80,9 +79,14 @@ namespace CustomSearch.Crawler
             Console.WriteLine(text);
         }
 
-        void Parse(Page page)
+        void Log(Page page)
         {
             Log($"Crawl of page succeeded {page.Url} ({page.Host} | {page.Path} | {page.Query})");
+        }
+
+        protected virtual void Process(Page page)
+        {
+            Log(page);
         }
     }
 }
