@@ -7,7 +7,7 @@ using Abot.Poco;
 
 namespace CustomSearch.Crawler
 {
-    class Page
+    public class Page
     {
         public string Url { get; set; }
         public string Host { get; set; }

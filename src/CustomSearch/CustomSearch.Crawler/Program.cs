@@ -23,7 +23,8 @@ namespace CustomSearch.Crawler
 
             Console.WriteLine($"Entrypoint: {entrypoint}");
 
-            var crawler = new CrawlerDb(connectionString);
+            var process = new ProcessorDb(connectionString);
+            var crawler = new Crawler(process);
 
             crawler.Start(entrypoint);
         }

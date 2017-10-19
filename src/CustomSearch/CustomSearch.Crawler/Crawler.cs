@@ -9,10 +9,15 @@ using System.Net;
 
 namespace CustomSearch.Crawler
 {
-    class Crawler
+    public class Crawler
     {
-        public Crawler()
+        public static readonly IProcessor DefaultProcessor = new ProcessorLog();
+
+        private readonly IProcessor _processor;
+
+        public Crawler(IProcessor processor)
         {
+            this._processor = processor;
         }
 
         public void Start(string entrypoint)
@@ -79,14 +84,18 @@ namespace CustomSearch.Crawler
             Console.WriteLine(text);
         }
 
-        void Log(Page page)
+        void Process(Page page)
         {
-            Log($"Crawl of page succeeded {page.Url} ({page.Host} | {page.Path} | {page.Query})");
-        }
-
-        protected virtual void Process(Page page)
-        {
-            Log(page);
+            _processor.Process(page);            
         }
     }
+
+    class ProcessorLog : IProcessor
+    {
+        public void Process(Page page)
+        {
+            Console.WriteLine($"Crawl of page succeeded {page.Url}");
+        }
+    }
+
 }

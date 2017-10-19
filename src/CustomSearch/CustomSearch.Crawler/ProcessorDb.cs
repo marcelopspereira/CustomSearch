@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace CustomSearch.Crawler
 {
-    class CrawlerDb : Crawler
+    class ProcessorDb : IProcessor
     {
         private readonly string _connectionString;
 
-        public CrawlerDb(string connectionString)
+        public ProcessorDb(string connectionString)
         {
             this._connectionString = connectionString;
         }
 
-        protected override void Process(Page page)
+        public void Process(Page page)
         {
             string title = page.Title;
             string description = page.TextContent;
@@ -26,15 +26,13 @@ namespace CustomSearch.Crawler
             {
                 conn.Open();
 
-                var cmd = new SqlCommand("INSERT WebPages([Title], [Description], [Link]) VALUES (@title, @description, @link)", conn);
+                var cmd = new SqlCommand("INSERT SearchWebPages([Title], [Description], [Link]) VALUES (@title, @description, @link)", conn);
                 cmd.Parameters.AddWithValue("@title", title);
                 cmd.Parameters.AddWithValue("@description", description);
                 cmd.Parameters.AddWithValue("@link", link);
 
                 cmd.ExecuteNonQuery();
             }
-
-            //base.Process(page);
         }
     }
 }
