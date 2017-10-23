@@ -9,11 +9,15 @@ using System.Net;
 
 namespace CustomSearch.Crawler
 {
-    class Crawler
+    public class Crawler
     {
-        public Crawler()
-        {
+        public static readonly IProcessor DefaultProcessor = new ProcessorLog();
 
+        private readonly IProcessor _processor;
+
+        public Crawler(IProcessor processor)
+        {
+            this._processor = processor;
         }
 
         public void Start(string entrypoint)
@@ -62,7 +66,7 @@ namespace CustomSearch.Crawler
 
             var page = Page.CreateFrom(crawledPage);
 
-            Parse(page);
+            Process(page);
         }
 
         void crawler_PageLinksCrawlDisallowed(object sender, PageLinksCrawlDisallowedArgs e)
@@ -80,9 +84,18 @@ namespace CustomSearch.Crawler
             Console.WriteLine(text);
         }
 
-        void Parse(Page page)
+        void Process(Page page)
         {
-            Log($"Crawl of page succeeded {page.Url} ({page.Host} | {page.Path} | {page.Query})");
+            _processor.Process(page);            
         }
     }
+
+    class ProcessorLog : IProcessor
+    {
+        public void Process(Page page)
+        {
+            Console.WriteLine($"Crawl of page succeeded {page.Url}");
+        }
+    }
+
 }

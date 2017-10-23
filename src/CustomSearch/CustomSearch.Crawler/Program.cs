@@ -12,17 +12,19 @@ namespace CustomSearch.Crawler
         {
             Console.WriteLine("CustomSearch.Crawler");
 
-            if( args.Length != 1 )
+            if( args.Length != 2 )
             {
                 Console.WriteLine("Error: Invalid number of parameters");
                 return;
             }
 
-            string entrypoint = args[0];
+            string connectionString = args[0];
+            string entrypoint = args[1];
 
             Console.WriteLine($"Entrypoint: {entrypoint}");
 
-            var crawler = new Crawler();
+            var process = new ProcessorDb(connectionString);
+            var crawler = new Crawler(process);
 
             crawler.Start(entrypoint);
         }
