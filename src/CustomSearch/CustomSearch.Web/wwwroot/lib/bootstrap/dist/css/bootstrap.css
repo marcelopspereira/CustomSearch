@@ -1264,15 +1264,17 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 36px;
+  font-size: 24px;
+  color: darkred;
 }
 h2,
 .h2 {
-  font-size: 30px;
+    font-size: 18px;
+    color: black;
 }
 h3,
 .h3 {
-  font-size: 24px;
+  font-size: 14px;
 }
 h4,
 .h4 {
@@ -5018,7 +5020,7 @@ a.badge:focus {
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #337ab7;
+  border-color: darkred;
 }
 .thumbnail .caption {
   padding: 9px;
