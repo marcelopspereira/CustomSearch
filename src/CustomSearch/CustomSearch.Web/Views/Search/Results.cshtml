@@ -8,6 +8,7 @@
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/bootstrap-custom.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -28,8 +29,8 @@
             {
                 <div>
                     <h3><a href="@result.Link">@result.Title</a></h3>
-                    <a href="@result.Link">@result.Link</a>
-                    <p>@result.Description</p>
+                    <h4><a href="@result.Link">@result.Link</a></h4>
+                    <h5><p>@result.Description</p></h5>
                 </div>
             }
         }
