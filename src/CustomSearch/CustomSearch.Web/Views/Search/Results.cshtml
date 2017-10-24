@@ -23,20 +23,26 @@
     <div class="container-fluid body-content">
         <h6>Resultado da Busca</h6>
  
+        @{ 
+
+            var countResults = new SearchResult();
 
 
-        <h3>Pesquisa por "@ViewBag.query" retornou 10 resultados</h3>
 
+        <h3>Pesquisa por "@ViewBag.query" retornou @countResults.Title.Count().ToString() resultados</h3>
+        }
      
 
         @{ 
             foreach(SearchResult result in ViewBag.searchResults)
             {
                 <div>
+                    <br />
                     <h4><a href="@result.Link">@result.Title</a></h4>
                     <p>@result.Link</p>
                     <p>@result.Description</p>
                     <p><a href="@result.Link">@result.Category</a></p>
+                    
                 </div>
             }
         }
