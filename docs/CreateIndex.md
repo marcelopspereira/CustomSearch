@@ -32,7 +32,7 @@ The file must be placed in the same folder of createindex.dll
     "ServiceName": "<your-service-name>",
     "ApiKey": "<service admin key>",
     "IndexName": "<your index name>",
-    "internetbankingCSV": "<Exam CSV file Path>",
+    "BusinessCSV": "<Business CSV file Path>",
     "SynonymCSV": "<Synonym CSV file path>",
     "DictionaryCSV": "<Dictionary CSV file path>"
   }
