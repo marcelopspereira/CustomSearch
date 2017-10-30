@@ -4,15 +4,15 @@ The Search API is WEB API .NET Core project that will help you to call Azure Sea
 
 ## Solution Architecture
 
-![architecture](https://github.com/DXBrazil/BradescoCustomSearch/blob/master/imgs/architecture.png)
+![architecture](https://github.com/DXBrazil/CustomSearch/blob/master/imgs/architecture.png)
 
 ## Search API Architecture
 
-![archsearchapi](https://github.com/DXBrazil/BradescoCustomSearch/blob/master/imgs/archsearchapi.png)
+![archsearchapi](https://github.com/DXBrazil/CustomSearch/blob/master/imgs/archsearchapi.png)
 
 ## Choose your search provider
 
-![bingorazure](https://github.com/DXBrazil/BradescoCustomSearch/blob/master/imgs/bingorazure.png)
+![bingorazure](https://github.com/DXBrazil/CustomSearch/blob/master/imgs/bingorazure.png)
 
 
 # Setup 

@@ -1,9 +1,9 @@
 # Create Index
 Console application to Create Azure Search Synonym Map.
 
-Bradesco wants an easy way to update synonyms in their search engines and we created a console application + Excel to upload and synonyms to the index of Azure Search.
+We created an easy way to implmement/update synonyms in Azure Search, you will use a console application + Excel to upload synonyms to the index of Azure Search.
 
-To overcome that we decided to use an [Azure Search](https://azure.microsoft.com/en-us/services/search/) index with [Synonym Map](https://azure.microsoft.com/en-us/blog/azure-search-synonyms-public-preview/).
+Azure Search has in preview the synonym feature and you can use in your projects: [Azure Search](https://azure.microsoft.com/en-us/services/search/) index with [Synonym Map](https://azure.microsoft.com/en-us/blog/azure-search-synonyms-public-preview/).
 
 # Prerequisites
 To use this console application is mandadory that you have access to an Azure Subscription [Try Azure](https://azure.microsoft.com/en-us/free/)
