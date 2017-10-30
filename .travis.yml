@@ -1,9 +1,9 @@
 language: csharp
 sudo: required
-solution: ./src/SolutionName.sln
+solution: ./src/CustomSearch.sln
 matrix:
   include:
-    - dotnet: 1.1.0
+    - dotnet: 2.0.0
       mono: none
       dist: trusty
 before_install:
