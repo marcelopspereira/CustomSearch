@@ -1,4 +1,4 @@
-# Create Index
+ # Create Index - Wait a few weeks, we are Open Sourcing this asset for general usage.
 Console application to Create Azure Search Synonym Map.
 
 We created an easy way to implmement/update synonyms in Azure Search, you will use a console application + Excel to upload synonyms to the index of Azure Search.
