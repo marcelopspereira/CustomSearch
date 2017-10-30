@@ -1,4 +1,4 @@
-# Crawler
+ # Crawler - Wait a few weeks, we are Open Sourcing this asset for general usage.
 
 A console application to download webpages and save the cleaned data in SQL Database for posterior index at Azure Search.
 
