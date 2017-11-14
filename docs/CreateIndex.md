@@ -1,4 +1,4 @@
-# Create Index
+ # Create Index - Wait a few weeks, we are Open Sourcing this asset for general usage.
 Console application to Create Azure Search Synonym Map.
 
 We created an easy way to implmement/update synonyms in Azure Search, you will use a console application + Excel to upload synonyms to the index of Azure Search.
@@ -32,7 +32,7 @@ The file must be placed in the same folder of createindex.dll
     "ServiceName": "<your-service-name>",
     "ApiKey": "<service admin key>",
     "IndexName": "<your index name>",
-    "internetbankingCSV": "<Exam CSV file Path>",
+    "BusinessCSV": "<Business CSV file Path>",
     "SynonymCSV": "<Synonym CSV file path>",
     "DictionaryCSV": "<Dictionary CSV file path>"
   }
